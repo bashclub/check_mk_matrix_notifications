@@ -29,3 +29,7 @@ After obtaining all of them you should create new notification with parameters l
 ![Check_mk notifications configuration](/check_mk_notifications_configuration.png)
 
 Where 1st parameter is a homeserver URL (with http or https), second parameter is a bot user's access token and third parameter is a room ID.
+
+## How it will look like?
+
+![Check_mk notifications example](/notifications_in_matrix.png)
