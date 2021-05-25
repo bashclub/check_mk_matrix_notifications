@@ -28,7 +28,7 @@ import os
 import random
 import string
 import sys
-import urllib.request
+import requests
 
 MATRIXHOST = os.environ["NOTIFY_PARAMETER_1"]
 MATRIXTOKEN = os.environ["NOTIFY_PARAMETER_2"]
@@ -86,12 +86,9 @@ matrixData = matrixData.encode("utf-8")
 # Random transaction ID for Matrix Homeserver.
 txnId = ''.join(random.SystemRandom().choice(
     string.ascii_uppercase + string.digits) for _ in range(16))
-
 # Authorization headers and etc.
 matrixHeaders = {"Authorization": "Bearer " + MATRIXTOKEN,
-                 "Content-Type": "application/json", "Content-Length": len(matrixData)}
+                 "Content-Type": "application/json", "Content-Length": str(len(matrixData))}
 # Request.
-req = urllib.request.Request(url=MATRIXHOST + "/_matrix/client/r0/rooms/" + MATRIXROOM +
-                             "/send/m.room.message/" + txnId, data=matrixData, headers=matrixHeaders, method="PUT")
-# Exec.
-urllib.request.urlopen(req)
+req = requests.put(url=MATRIXHOST + "/_matrix/client/r0/rooms/" + MATRIXROOM +
+                             "/send/m.room.message/" + txnId, data=matrixData, headers=matrixHeaders)
